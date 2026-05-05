@@ -1,0 +1,344 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "citeAs": "cr:citeAs",
+    "column": "cr:column",
+    "conformsTo": "dct:conformsTo",
+    "cr": "http://mlcommons.org/croissant/",
+    "rai": "http://mlcommons.org/croissant/RAI/",
+    "data": {
+      "@id": "cr:data",
+      "@type": "@json"
+    },
+    "dataType": {
+      "@id": "cr:dataType",
+      "@type": "@vocab"
+    },
+    "dct": "http://purl.org/dc/terms/",
+    "equivalentProperty": "cr:equivalentProperty",
+    "examples": {
+      "@id": "cr:examples",
+      "@type": "@json"
+    },
+    "extract": "cr:extract",
+    "field": "cr:field",
+    "fileProperty": "cr:fileProperty",
+    "fileObject": "cr:fileObject",
+    "fileSet": "cr:fileSet",
+    "format": "cr:format",
+    "includes": "cr:includes",
+    "isLiveDataset": "cr:isLiveDataset",
+    "jsonPath": "cr:jsonPath",
+    "key": "cr:key",
+    "md5": "cr:md5",
+    "parentField": "cr:parentField",
+    "path": "cr:path",
+    "recordSet": "cr:recordSet",
+    "references": "cr:references",
+    "regex": "cr:regex",
+    "repeated": "cr:repeated",
+    "replace": "cr:replace",
+    "samplingRate": "cr:samplingRate",
+    "sc": "https://schema.org/",
+    "separator": "cr:separator",
+    "source": "cr:source",
+    "subField": "cr:subField",
+    "transform": "cr:transform"
+  },
+  "@type": "sc:Dataset",
+  "name": "ObjView Benchmark (ObjView-Bench)",
+  "description": "ObjView-Bench distributes benchmark metadata for 3D assets aligned with Objaverse 1.0: normalization parameters (translation center and scale from Poisson-disk samples on GLB meshes) and fixed labels for omnidirectional self-occlusion, observation saturation difficulty, and planning difficulty. Rasterized meshes and textures are not included; scripts document how to fetch GLBs and reproduce normalized geometry.",
+  "conformsTo": "http://mlcommons.org/croissant/1.1",
+  "citeAs": "TODO: Add BibTeX for the ObjView / ObjView-Bench paper after publication.",
+  "datePublished": "2026-05-05T04:02:48.975972Z",
+  "license": "https://creativecommons.org/licenses/by/4.0/",
+  "rai:dataBiases": "Objaverse reflects community upload patterns (categories, quality, geographic and cultural skew) and licensing heterogeneity; downstream models may inherit these biases.",
+  "rai:dataCollection": "Object identities and source meshes originate from Objaverse 1.0 (community-uploaded 3D models with associated licenses). This release adds derived normalization statistics and benchmark labels from the ObjView benchmark pipeline.",
+  "rai:dataLimitations": "Benchmark label fields are released as fixed values for the listed UIDs; the code that produced them is not part of this bundle. Full meshes must be obtained under Objaverse and per-asset licenses. Labels reflect dataset construction choices and may not transfer to other domains.",
+  "rai:dataPreprocessingProtocol": [
+    "Meshes: load GLB, Poisson-disk sample surface points, set translation_center to the sample mean and scale to the max L2 distance from that center.",
+    "Optional geometry pipeline: download GLB via objaverse; convert with Blender 4.2.x to OBJ with a single baked texture; normalize OBJ vertices with the same center and scale."
+  ],
+  "rai:dataSocialImpact": "Intended for academic and non-deceptive research. Misuse could include surveillance-oriented 3D reconstruction or synthetic data generation without respecting source licenses; users should comply with Objaverse and asset-level terms.",
+  "rai:dataUseCases": "Empirical research on multi-view 3D understanding, active view selection, and navigation policies evaluated on fixed object-centric assets.",
+  "rai:personalSensitiveInformation": "No personal identifiers. UIDs identify 3D assets, not individuals.",
+  "url": "TODO: Replace with the public dataset or project page URL.",
+  "version": "1.0.0",
+  "distribution": [
+    {
+      "@type": "cr:FileObject",
+      "@id": "file_readme",
+      "name": "README.md",
+      "description": "Dataset documentation and geometry preprocessing instructions.",
+      "contentUrl": "README.md",
+      "encodingFormat": "text/markdown",
+      "sha256": "4fe44611864ef4937c666ec02325e2adfda845600b66f45f399ac12490e6313d"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "file_requirements_txt",
+      "name": "requirements.txt",
+      "description": "Pinned Python dependencies for preprocessing scripts.",
+      "contentUrl": "requirements.txt",
+      "encodingFormat": "text/plain",
+      "sha256": "3db068c3bb576f171c0445635cc4175f0ebe4ecde5976b54ab998c6efd66b8cd"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "file_main_train_public_json",
+      "name": "main_train_public.json",
+      "description": "Public main-pool training split.",
+      "contentUrl": "data/main_train_public.json",
+      "encodingFormat": "application/json",
+      "sha256": "f2624b3575cb9c83574aac9e5412fdc2dd896a5ac9e120802c0681802b1f2b1e"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "file_slow_saturation_pool_json",
+      "name": "slow_saturation_pool.json",
+      "description": "Long-tail pool with slower observation-saturation behavior.",
+      "contentUrl": "data/slow_saturation_pool.json",
+      "encodingFormat": "application/json",
+      "sha256": "b987ce25f60c126d7f32bf2bd9e69533c4d4416c3369bf224788163a00c5baf5"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "file_script_download_objaverse_glb",
+      "name": "download_objaverse_glb.py",
+      "description": "Download Objaverse GLBs by UID; optional mesh validation.",
+      "contentUrl": "scripts/download_objaverse_glb.py",
+      "encodingFormat": "text/x-python",
+      "sha256": "6545f22e2a4a4303e0f04985cabecb175b81a07ae1c5fc736224b63e004218e5"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "file_script_glb_to_normalized_pcd",
+      "name": "glb_to_normalized_pcd.py",
+      "description": "Sample GLB to a normalized PCD using stored or computed normalization.",
+      "contentUrl": "scripts/glb_to_normalized_pcd.py",
+      "encodingFormat": "text/x-python",
+      "sha256": "d9a1cea56cd0e59030acfec296e6e553b6a27434bc2b226ec3eeb9b8e66e7605"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "file_script_glb_to_obj_blender",
+      "name": "glb_to_obj_blender.py",
+      "description": "Blender batch GLB to standardized textured OBJ (run with blender -b -P).",
+      "contentUrl": "scripts/glb_to_obj_blender.py",
+      "encodingFormat": "text/x-python",
+      "sha256": "9d6358fb6af0c4d49466427c23322e271f1f6787d6997233f43008a71c1707f1"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "file_script_normalize_obj",
+      "name": "normalize_obj.py",
+      "description": "Apply normalization transform to OBJ vertex lines.",
+      "contentUrl": "scripts/normalize_obj.py",
+      "encodingFormat": "text/x-python",
+      "sha256": "764f9f76cc82e9fd704099486f5a4364e4e689c7f22b1bd01e274edb0fadda4a"
+    }
+  ],
+  "recordSet": [
+    {
+      "@type": "cr:RecordSet",
+      "@id": "main_train_public",
+      "name": "main_train_public",
+      "description": "One row per asset in data/main_train_public.json.",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "main_train_public/uid",
+          "name": "main_train_public/uid",
+          "description": "Objaverse 1.0 asset UID (32 hex characters, lowercase).",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "file_main_train_public_json"
+            },
+            "extract": {
+              "jsonPath": "$[*].uid"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "main_train_public/translation_center",
+          "name": "main_train_public/translation_center",
+          "description": "Translation center c in normalized_point = (p - c) / s.",
+          "cr:arrayShape": "3",
+          "cr:isArray": true,
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "file_main_train_public_json"
+            },
+            "extract": {
+              "jsonPath": "$[*].translation_center"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "main_train_public/scale",
+          "name": "main_train_public/scale",
+          "description": "Scale s in normalized_point = (p - c) / s.",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "file_main_train_public_json"
+            },
+            "extract": {
+              "jsonPath": "$[*].scale"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "main_train_public/omnidirectional_self_occlusion_attribute",
+          "name": "main_train_public/omnidirectional_self_occlusion_attribute",
+          "description": "Benchmark label: omnidirectional self-occlusion score.",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "file_main_train_public_json"
+            },
+            "extract": {
+              "jsonPath": "$[*].omnidirectional_self_occlusion_attribute"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "main_train_public/observation_saturation_difficulty",
+          "name": "main_train_public/observation_saturation_difficulty",
+          "description": "Benchmark label: observation saturation difficulty.",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "file_main_train_public_json"
+            },
+            "extract": {
+              "jsonPath": "$[*].observation_saturation_difficulty"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "main_train_public/planning_difficulty",
+          "name": "main_train_public/planning_difficulty",
+          "description": "Benchmark label: planning difficulty.",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "file_main_train_public_json"
+            },
+            "extract": {
+              "jsonPath": "$[*].planning_difficulty"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "@type": "cr:RecordSet",
+      "@id": "slow_saturation_pool",
+      "name": "slow_saturation_pool",
+      "description": "One row per asset in data/slow_saturation_pool.json.",
+      "field": [
+        {
+          "@type": "cr:Field",
+          "@id": "slow_saturation_pool/uid",
+          "name": "slow_saturation_pool/uid",
+          "description": "Objaverse 1.0 asset UID (32 hex characters, lowercase).",
+          "dataType": "sc:Text",
+          "source": {
+            "fileObject": {
+              "@id": "file_slow_saturation_pool_json"
+            },
+            "extract": {
+              "jsonPath": "$[*].uid"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "slow_saturation_pool/translation_center",
+          "name": "slow_saturation_pool/translation_center",
+          "description": "Translation center c in normalized_point = (p - c) / s.",
+          "cr:arrayShape": "3",
+          "cr:isArray": true,
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "file_slow_saturation_pool_json"
+            },
+            "extract": {
+              "jsonPath": "$[*].translation_center"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "slow_saturation_pool/scale",
+          "name": "slow_saturation_pool/scale",
+          "description": "Scale s in normalized_point = (p - c) / s.",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "file_slow_saturation_pool_json"
+            },
+            "extract": {
+              "jsonPath": "$[*].scale"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "slow_saturation_pool/omnidirectional_self_occlusion_attribute",
+          "name": "slow_saturation_pool/omnidirectional_self_occlusion_attribute",
+          "description": "Benchmark label: omnidirectional self-occlusion score.",
+          "dataType": "sc:Float",
+          "source": {
+            "fileObject": {
+              "@id": "file_slow_saturation_pool_json"
+            },
+            "extract": {
+              "jsonPath": "$[*].omnidirectional_self_occlusion_attribute"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "slow_saturation_pool/observation_saturation_difficulty",
+          "name": "slow_saturation_pool/observation_saturation_difficulty",
+          "description": "Benchmark label: observation saturation difficulty.",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "file_slow_saturation_pool_json"
+            },
+            "extract": {
+              "jsonPath": "$[*].observation_saturation_difficulty"
+            }
+          }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "slow_saturation_pool/planning_difficulty",
+          "name": "slow_saturation_pool/planning_difficulty",
+          "description": "Benchmark label: planning difficulty.",
+          "dataType": "sc:Integer",
+          "source": {
+            "fileObject": {
+              "@id": "file_slow_saturation_pool_json"
+            },
+            "extract": {
+              "jsonPath": "$[*].planning_difficulty"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
