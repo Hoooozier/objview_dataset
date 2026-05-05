@@ -1065,19 +1065,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-"""
-Example:
-
-# single uid from a directory
-"C:\Program Files\Blender Foundation\Blender 4.2\blender.exe" -b -P "glb_blender_obj.py" -- --input_dir "geometry_sampled/glb" --output_dir "geometry_sampled/obj" --overwrite --bake_device GPU --uid_filter 03e08488bf4d49cfa92b2b41a575ae72
-
-# single explicit file
-"C:\Program Files\Blender Foundation\Blender 4.2\blender.exe" -b -P "glb_blender_obj.py" -- --single_glb "geometry_sampled/glb/03e08488bf4d49cfa92b2b41a575ae72.glb" --output_dir "geometry_sampled/obj" --overwrite --bake_device GPU
-
-# sliced batch 1
-"C:\Program Files\Blender Foundation\Blender 4.2\blender.exe" -b -P "glb_blender_obj.py" -- --input_dir "geometry_sampled/glb" --output_dir "geometry_sampled/obj" --overwrite --bake_device GPU --start_idx 0 --end_idx 7000
-
-# sliced batch 2
-"C:\Program Files\Blender Foundation\Blender 4.2\blender.exe" -b -P "glb_blender_obj.py" -- --input_dir "geometry_sampled/glb" --output_dir "geometry_sampled/obj" --overwrite --bake_device GPU --start_idx 7000 --end_idx 12000
-"""

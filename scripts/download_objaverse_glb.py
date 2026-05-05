@@ -440,20 +440,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-"""
-python download_objaverse_glb.py \
-    --mode download_all \
-    --json_path data/main_train_public.json \
-    --target_dir glb
-
-python download_objaverse_glb.py \
-    --mode redownload_missing \
-    --json_path data/main_train_public.json \
-    --target_dir glb
-
-python download_objaverse_glb.py \
-    --mode validate_mesh_loaders \
-    --target_dir glb \
-    --report_path glb_mesh_validation_report.json
-"""

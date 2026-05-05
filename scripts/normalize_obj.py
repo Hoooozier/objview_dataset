@@ -415,12 +415,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-"""
-python normalize_obj.py \
-  --input_dir geometry_sampled/obj \
-  --output_dir geometry_sampled/obj_normalized \
-  --json_path geometry_sampled/normalization.json \
-  --stats_json_path geometry_sampled/obj_normalized_stats.json \
-  --workers 20
-"""
